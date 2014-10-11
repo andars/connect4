@@ -8,9 +8,11 @@ public class Connect4 extends JPanel implements MouseListener {
 	int rows = 6;
 	int size = 80;
 	GameBoard board = new GameBoard(cols, rows);
-	C4Minimax ai = new C4Minimax(1);	
+	C4Minimax ai = new C4Minimax(0);	
 	public Connect4() {
 		addMouseListener(this);
+		int move = ai.getBestMove(board);
+		board.dropDisc(move, (player+1)%2);
 	
 	}
 	public void paint(Graphics g) {
@@ -49,14 +51,16 @@ public class Connect4 extends JPanel implements MouseListener {
 		int col = x/80;
 		board.dropDisc(col, player);
 		repaint();
-
 		int move = ai.getBestMove(board);
 		board.dropDisc(move, (player+1)%2);
+
 		//player = (player+1)%2;
 		int s = board.checkWin();
 		if (s >= 0) {
 			System.out.println("won: " + board.checkWin());
+			removeMouseListener(this);
 		}
+
 		repaint();
 	}
 }

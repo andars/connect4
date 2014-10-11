@@ -28,10 +28,9 @@ public class C4Minimax
 				if (val > max) {
 					max = val;
 					max_col = col;
-					//System.out.println("ME: changing previous choice of " + choice + " to new " + col + " at depth: " + depth);
 				}
 			}
-		//	System.out.println("at depth: " + depth + " max is " + max + " at col " + max_col);
+			System.out.println("at depth: " + depth + " max is " + max + " at col " + max_col);
 			return new int[]{max,max_col};
 		} else {
 			int min = Integer.MAX_VALUE;
@@ -43,7 +42,6 @@ public class C4Minimax
 				if (val < min) {
 					min = val;
 					min_col = col;
-					//System.out.println("ENEMY: changing previous choice of " + choice + " to new " + col + " depth: " + depth);
 				}
 			}
 			return new int[]{min, min_col};
@@ -62,7 +60,7 @@ public class C4Minimax
 		//		System.out.println("WOOOOOT");
 				return 100 + depth;
 			} else {
-				return -100 + depth; 
+				return -100 - depth; 
 			}
 		}
 		//massively awesome heuristic right here

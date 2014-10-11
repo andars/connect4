@@ -28,13 +28,14 @@ public class GameBoard{
         board[row][col] = value;
     }
     
-    public void dropDisc(int col, int player) {
+    public boolean dropDisc(int col, int player) {
         for (int row = board.length-1; row >= 0; row--) {
             if (board[row][col] == 0) {
                 setLocation(row, col, player+1);
-                break;
+				return true;
             }
         }
+        return false;
     }
     
     public int checkWin() {

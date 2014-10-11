@@ -6,7 +6,7 @@ public class C4Minimax
 		this.player = player;
 	}
 	public int getBestMove(GameBoard state) {
-		int results[] = minimax(state, this.player, 4);
+		int results[] = minimax(state, this.player, 8);
 		System.out.println(results[0] + " " + results[1]);
 		return results[1];
 	}
@@ -22,7 +22,7 @@ public class C4Minimax
 			int max_col = 0;
 			for (int col = 0; col<state.getWidth(); col++) {
 				GameBoard next = state.clone();
-				next.dropDisc(col, player);
+				if (!next.dropDisc(col, player)) continue; //only take possible moves
 				int val = minimax(next, (player+1)%2, depth-1)[0];
 //				System.out.println("testing " + col + ", value = " + val);
 				if (val > max) {
@@ -30,14 +30,14 @@ public class C4Minimax
 					max_col = col;
 				}
 			}
-			System.out.println("at depth: " + depth + " max is " + max + " at col " + max_col);
+			//System.out.println("at depth: " + depth + " max is " + max + " at col " + max_col);
 			return new int[]{max,max_col};
 		} else {
 			int min = Integer.MAX_VALUE;
 			int min_col = 0;
 			for (int col = 0; col<state.getWidth(); col++) {
 				GameBoard next = state.clone();
-				next.dropDisc(col, player);
+				if (!next.dropDisc(col, player)) continue;
 				int val = minimax(next, (player+1)%2, depth-1)[0];
 				if (val < min) {
 					min = val;
@@ -64,6 +64,6 @@ public class C4Minimax
 			}
 		}
 		//massively awesome heuristic right here
-		return 0; 
+		return (int) (Math.random()*10) - 5; 
 	}
 }
